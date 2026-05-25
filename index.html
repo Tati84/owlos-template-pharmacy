@@ -104,9 +104,10 @@ h2.section-title{font-family:var(--ff-display);font-size:clamp(2rem,4vw,3rem);fo
 .hero-tag::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--emerald);animation:blink 2s ease-in-out infinite}
 h1.hero-title{font-family:var(--ff-display);font-size:clamp(3.6rem,9vw,7.5rem);font-weight:400;line-height:1.0;color:var(--ink);margin-bottom:32px;max-width:920px}
 h1.hero-title em{font-style:italic;color:var(--emerald);display:block}
-/* EKG canvas — standalone element below CTA */
-.hero-ekg-wrap{width:100%;height:160px;overflow:hidden;margin-top:8px;flex-shrink:0}
-#hero-hud{display:block;width:100%;height:100%}
+/* EKG canvas — full-viewport-width overlay centred on the h1 title */
+.hero-title-wrap{position:relative;margin-bottom:32px;overflow:visible}
+.hero-title-wrap h1.hero-title{margin-bottom:0}
+#hero-hud{position:absolute;left:50%;top:50%;width:100vw;height:240px;transform:translate(-50%,-50%);pointer-events:none;z-index:2;display:block}
 .hero-meta{display:grid;grid-template-columns:1fr 1px 1fr;gap:48px;align-items:center;width:100%;margin-bottom:40px;text-align:left}
 .hero-meta-div{background:var(--mist);align-self:stretch;min-height:80px}
 .hero-copy{font-size:16px;font-weight:300;color:var(--muted);line-height:1.75}
@@ -124,7 +125,6 @@ h1.hero-title em{font-style:italic;color:var(--emerald);display:block}
 .hero-strip{position:relative;z-index:1;width:100%;max-width:1380px;margin:0 auto;padding:0 40px}
 .hero-strip-inner{border-radius:24px;overflow:hidden;aspect-ratio:21/9;background:var(--frost);position:relative}
 .hero-strip-inner img{width:100%;height:100%;object-fit:cover}
-#hero-hud{position:absolute;inset:0;pointer-events:none}
 
 /* ── Marquee ── */
 #marquee{padding:0;overflow:hidden;background:linear-gradient(90deg,var(--forest),var(--pine) 50%,var(--forest));border-top:1px solid rgba(45,122,79,.2);border-bottom:1px solid rgba(45,122,79,.2)}
@@ -362,9 +362,12 @@ footer{background:var(--pine);padding:80px 0 32px}
   </div>
   <div class="hero-inner">
     <div class="hero-tag rv">SÚKL Certified Pharmacy</div>
-    <h1 class="hero-title rv" style="transition-delay:.08s">
-      Your health,<em>our expertise.</em>
-    </h1>
+    <div class="hero-title-wrap rv" style="transition-delay:.08s">
+      <h1 class="hero-title">
+        Your health,<em>our expertise.</em>
+      </h1>
+      <canvas id="hero-hud" aria-hidden="true"></canvas>
+    </div>
     <div class="hero-meta rv" style="transition-delay:.16s">
       <p class="hero-copy">From prescription fulfilment to personalised health consultations — PharmaCare brings professional pharmaceutical care to every patient, every day.</p>
       <div class="hero-meta-div" aria-hidden="true"></div>
@@ -383,9 +386,6 @@ footer{background:var(--pine);padding:80px 0 32px}
         </div>
       </div>
     </div>
-    <div class="hero-ekg-wrap">
-      <canvas id="hero-hud" aria-hidden="true"></canvas>
-    </div>
     <div class="hero-cta rv" style="transition-delay:.24s">
       <a href="#contact" class="btn-primary">Book a Consultation</a>
       <a href="#services" class="btn-secondary" aria-label="Explore our services">
@@ -397,7 +397,7 @@ footer{background:var(--pine);padding:80px 0 32px}
   <!-- Full-width landscape photo strip with EKG overlay -->
   <div class="hero-strip rv" style="transition-delay:.32s">
     <div class="hero-strip-inner">
-      <img src="assets/images/placeholder.svg" alt="Professional pharmacist at the counter" width="1240" height="530">
+      <img src="depositphotos_737044030-stock-photo-medicines-pharmacy-hands-doctor-concept.jpg" alt="Professional pharmacist at the counter" width="1240" height="530">
     </div>
   </div>
 </section>
@@ -1147,9 +1147,8 @@ footer{background:var(--pine);padding:80px 0 32px}
   var t=0;
 
   function resize(){
-    var wrap=c.parentElement;
-    c.width=wrap.offsetWidth||window.innerWidth;
-    c.height=wrap.offsetHeight||160;
+    c.width=window.innerWidth;
+    c.height=c.offsetHeight||240;
   }
   resize(); window.addEventListener('resize',resize);
 
@@ -1160,20 +1159,15 @@ footer{background:var(--pine);padding:80px 0 32px}
     var W=c.width, H=c.height;
     ctx.clearRect(0,0,W,H);
 
-    /* Gradient overlay — transparent centre, darker at edges */
-    var g=ctx.createLinearGradient(0,0,0,H);
-    g.addColorStop(0,'rgba(13,43,26,0)');
-    g.addColorStop(.65,'rgba(13,43,26,0)');
-    g.addColorStop(1,'rgba(13,43,26,.55)');
-    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+    /* No background fill — canvas is transparent over the title text */
 
-    /* Scale EKG amplitude to strip height */
-    var amp=H*.1;
+    /* Scale EKG amplitude to title height */
+    var amp=H*.18;
     var ekg=ekgBase.map(function(v){return v*amp});
 
-    /* EKG line — scrolls left */
+    /* EKG line — scrolls left, centred vertically on title */
     var segW=W/(ekg.length-1);
-    var baseY=H*.72;
+    var baseY=H*.5;
     ctx.beginPath();
     var offset=(t*.9)%W;
     for(var pass=0;pass<2;pass++){
@@ -1183,8 +1177,8 @@ footer{background:var(--pine);padding:80px 0 32px}
         if(i===0&&pass===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
       }
     }
-    ctx.strokeStyle='rgba(45,122,79,.75)';
-    ctx.lineWidth=2;
+    ctx.strokeStyle='rgba(45,122,79,.8)';
+    ctx.lineWidth=4;
     ctx.lineJoin='round';
     ctx.stroke();
 
@@ -1206,8 +1200,8 @@ footer{background:var(--pine);padding:80px 0 32px}
         if(i===0&&pass===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
       }
     }
-    ctx.strokeStyle='rgba(45,122,79,.2)';
-    ctx.lineWidth=1.2;
+    ctx.strokeStyle='rgba(45,122,79,.3)';
+    ctx.lineWidth=2;
     ctx.stroke();
 
     t++; requestAnimationFrame(draw);
