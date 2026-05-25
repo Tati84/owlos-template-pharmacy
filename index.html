@@ -96,40 +96,35 @@ h2.section-title{font-family:var(--ff-display);font-size:clamp(2rem,4vw,3rem);fo
 .rv.in{opacity:1;transform:none}
 
 /* ── Hero ── */
-#hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:68px}
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;position:relative;overflow:hidden;padding-top:68px}
 #hero-canvas{position:absolute;inset:0;z-index:0;pointer-events:none}
-.hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;padding:80px 60px;max-width:1380px;margin:0 auto;width:100%}
-.hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--frost);border:1px solid var(--mist);color:var(--emerald);font-family:var(--ff-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:7px 14px;border-radius:40px;margin-bottom:28px}
+.hero-deco-cross{position:absolute;top:50%;left:50%;transform:translate(-50%,-56%);z-index:0;pointer-events:none;animation:crossPulse 8s ease-in-out infinite}
+.hero-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:100%;max-width:1380px;margin:0 auto;padding:64px 80px 0;text-align:center}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--frost);border:1px solid var(--mist);color:var(--emerald);font-family:var(--ff-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:7px 14px;border-radius:40px;margin-bottom:36px}
 .hero-tag::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--emerald);animation:blink 2s ease-in-out infinite}
-h1.hero-title{font-family:var(--ff-display);font-size:clamp(2.6rem,5vw,4.2rem);font-weight:400;line-height:1.1;color:var(--ink);margin-bottom:24px}
-h1.hero-title em{font-style:italic;color:var(--emerald)}
-.hero-copy{font-size:17px;font-weight:300;color:var(--muted);line-height:1.7;max-width:480px;margin-bottom:40px}
-.hero-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:56px}
+h1.hero-title{font-family:var(--ff-display);font-size:clamp(3.6rem,9vw,7.5rem);font-weight:400;line-height:1.0;color:var(--ink);margin-bottom:32px;max-width:920px}
+h1.hero-title em{font-style:italic;color:var(--emerald);display:block}
+/* EKG canvas — standalone element below CTA */
+.hero-ekg-wrap{width:100%;height:160px;overflow:hidden;margin-top:8px;flex-shrink:0}
+#hero-hud{display:block;width:100%;height:100%}
+.hero-meta{display:grid;grid-template-columns:1fr 1px 1fr;gap:48px;align-items:center;width:100%;margin-bottom:40px;text-align:left}
+.hero-meta-div{background:var(--mist);align-self:stretch;min-height:80px}
+.hero-copy{font-size:16px;font-weight:300;color:var(--muted);line-height:1.75}
+.hero-stats{display:flex;flex-direction:column;gap:14px}
+.hero-stat{display:flex;align-items:baseline;gap:12px}
+.hero-stat-num{font-family:var(--ff-mono);font-size:1.75rem;color:var(--ink)}
+.hero-stat-label{font-size:13px;color:var(--muted)}
+.hero-cta{display:flex;align-items:center;gap:16px;margin-bottom:56px;flex-wrap:wrap;justify-content:center}
 .btn-primary{background:linear-gradient(135deg,var(--emerald),var(--forest));color:#fff;padding:14px 30px;border-radius:10px;font-size:15px;font-weight:600;letter-spacing:.01em;transition:opacity .2s,transform .2s var(--ease-spring)}
 .btn-primary:hover{opacity:.88;transform:translateY(-2px)}
 .btn-secondary{display:flex;align-items:center;gap:8px;color:var(--emerald);font-size:15px;font-weight:500;transition:gap .2s var(--ease-spring)}
 .btn-secondary:hover{gap:12px}
 .btn-secondary svg{width:18px;height:18px}
-.hero-stats{display:flex;align-items:center;gap:0;border-top:1px solid var(--mist);padding-top:40px}
-.hero-stat{flex:1;padding-right:32px}
-.hero-stat+.hero-stat{padding-left:32px;padding-right:32px;border-left:1px solid var(--mist)}
-.hero-stat:last-child{padding-right:0}
-.hero-stat-num{font-family:var(--ff-mono);font-size:2rem;font-weight:400;color:var(--ink);display:block;margin-bottom:4px}
-.hero-stat-label{font-size:13px;color:var(--muted)}
-
-/* Hero visual column */
-.hero-visual{position:relative}
-.hero-photo-wrap{position:relative;border-radius:40px 40px 120px 40px;overflow:hidden;aspect-ratio:4/5;background:var(--frost)}
-.hero-photo-wrap img{width:100%;height:100%;object-fit:cover}
-#hero-hud{position:absolute;bottom:0;left:0;right:0;height:140px;pointer-events:none}
-.hero-scan{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(45,122,79,.3),transparent);animation:scan 7s linear infinite;pointer-events:none;top:0}
-/* Floating pip cards */
-.pip{position:absolute;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border:1px solid var(--mist);border-radius:16px;padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 8px 32px rgba(10,31,20,.08);animation:float 6s ease-in-out infinite}
-.pip-icon{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--emerald),var(--sage));display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;flex-shrink:0}
-.pip-text{font-size:12px;font-weight:600;color:var(--ink);line-height:1.3}
-.pip-sub{font-size:11px;color:var(--muted);font-weight:400}
-.pip-a{top:32px;right:-24px;animation-delay:0s}
-.pip-b{bottom:140px;left:-24px;animation-delay:-3s}
+/* Wide landscape photo strip */
+.hero-strip{position:relative;z-index:1;width:100%;max-width:1380px;margin:0 auto;padding:0 40px}
+.hero-strip-inner{border-radius:24px;overflow:hidden;aspect-ratio:21/9;background:var(--frost);position:relative}
+.hero-strip-inner img{width:100%;height:100%;object-fit:cover}
+#hero-hud{position:absolute;inset:0;pointer-events:none}
 
 /* ── Marquee ── */
 #marquee{padding:0;overflow:hidden;background:linear-gradient(90deg,var(--forest),var(--pine) 50%,var(--forest));border-top:1px solid rgba(45,122,79,.2);border-bottom:1px solid rgba(45,122,79,.2)}
@@ -283,8 +278,10 @@ footer{background:var(--pine);padding:80px 0 32px}
 
 /* ── Responsive ── */
 @media(max-width:1100px){
-  .hero-inner{grid-template-columns:1fr;gap:48px}
-  .hero-visual{display:none}
+  .hero-inner{padding:48px 40px 0}
+  .hero-meta{grid-template-columns:1fr;gap:24px}
+  .hero-meta-div{display:none}
+  .hero-strip{padding:0 24px}
   .about-inner{grid-template-columns:1fr}
   .about-photo-wrap{display:none}
   .contact-inner{grid-template-columns:1fr}
@@ -294,7 +291,9 @@ footer{background:var(--pine);padding:80px 0 32px}
 }
 @media(max-width:768px){
   .nav-links{display:none}
-  .container,.hero-inner{padding:0 24px}
+  .container{padding:0 24px}
+  .hero-inner{padding:40px 24px 0}
+  .hero-strip{padding:0 16px}
   .section,#hours{padding:80px 0}
   .prod-grid,.testi-grid,.hours-cards{grid-template-columns:1fr}
   .form-row{grid-template-columns:1fr}
@@ -302,8 +301,8 @@ footer{background:var(--pine);padding:80px 0 32px}
   .bento-item:nth-child(1),.bento-item:nth-child(5){grid-column:span 2;min-height:200px}
   .footer-grid{grid-template-columns:1fr}
   .steps-track{grid-template-columns:1fr}
-  .hero-stats{flex-direction:column;align-items:flex-start;gap:20px}
-  .hero-stat,.hero-stat+.hero-stat{padding:0;border:none}
+  h1.hero-title{font-size:clamp(2.8rem,10vw,4rem);margin-bottom:36px}
+  .hero-stats{gap:10px}
 }
 </style>
 </head>
@@ -354,24 +353,22 @@ footer{background:var(--pine);padding:80px 0 32px}
 ══════════════════════════════════════════ -->
 <section id="hero" aria-label="Hero">
   <canvas id="hero-canvas" aria-hidden="true"></canvas>
-  <div class="hero-scan" aria-hidden="true"></div>
+  <!-- Large decorative background cross -->
+  <div class="hero-deco-cross" aria-hidden="true">
+    <svg width="640" height="640" viewBox="0 0 640 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="272" y="60" width="96" height="520" rx="24" fill="#2D7A4F"/>
+      <rect x="60" y="272" width="520" height="96" rx="24" fill="#2D7A4F"/>
+    </svg>
+  </div>
   <div class="hero-inner">
-    <div class="hero-copy-col">
-      <div class="hero-tag rv">SÚKL Certified Pharmacy</div>
-      <h1 class="hero-title rv" style="transition-delay:.1s">
-        Your health,<br><em>our expertise.</em>
-      </h1>
-      <p class="hero-copy rv" style="transition-delay:.2s">
-        From prescription fulfilment to personalised health consultations — PharmaCare brings professional pharmaceutical care to every patient, every day.
-      </p>
-      <div class="hero-actions rv" style="transition-delay:.3s">
-        <a href="#contact" class="btn-primary">Book a Consultation</a>
-        <a href="#services" class="btn-secondary" aria-label="Explore our services">
-          <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="9" cy="9" r="8" stroke="currentColor" stroke-width="1.5"/><path d="M6 9h6M9 6l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Explore services
-        </a>
-      </div>
-      <div class="hero-stats rv" style="transition-delay:.4s">
+    <div class="hero-tag rv">SÚKL Certified Pharmacy</div>
+    <h1 class="hero-title rv" style="transition-delay:.08s">
+      Your health,<em>our expertise.</em>
+    </h1>
+    <div class="hero-meta rv" style="transition-delay:.16s">
+      <p class="hero-copy">From prescription fulfilment to personalised health consultations — PharmaCare brings professional pharmaceutical care to every patient, every day.</p>
+      <div class="hero-meta-div" aria-hidden="true"></div>
+      <div class="hero-stats">
         <div class="hero-stat">
           <span class="hero-stat-num" data-count="15">0</span>
           <span class="hero-stat-label">Years of service</span>
@@ -386,27 +383,21 @@ footer{background:var(--pine);padding:80px 0 32px}
         </div>
       </div>
     </div>
-
-    <div class="hero-visual rv" style="transition-delay:.2s">
-      <div class="hero-photo-wrap">
-        <img src="assets/images/placeholder.svg" alt="Professional pharmacist at the counter" width="560" height="700">
-        <canvas id="hero-hud" aria-hidden="true"></canvas>
-      </div>
-      <!-- Floating pip cards -->
-      <div class="pip pip-a" aria-hidden="true">
-        <div class="pip-icon">✚</div>
-        <div>
-          <div class="pip-text">CE Certified</div>
-          <div class="pip-sub">All products verified</div>
-        </div>
-      </div>
-      <div class="pip pip-b" aria-hidden="true">
-        <div class="pip-icon">🚚</div>
-        <div>
-          <div class="pip-text">24h Delivery</div>
-          <div class="pip-sub">Free above €40</div>
-        </div>
-      </div>
+    <div class="hero-ekg-wrap">
+      <canvas id="hero-hud" aria-hidden="true"></canvas>
+    </div>
+    <div class="hero-cta rv" style="transition-delay:.24s">
+      <a href="#contact" class="btn-primary">Book a Consultation</a>
+      <a href="#services" class="btn-secondary" aria-label="Explore our services">
+        <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="9" cy="9" r="8" stroke="currentColor" stroke-width="1.5"/><path d="M6 9h6M9 6l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Explore services
+      </a>
+    </div>
+  </div>
+  <!-- Full-width landscape photo strip with EKG overlay -->
+  <div class="hero-strip rv" style="transition-delay:.32s">
+    <div class="hero-strip-inner">
+      <img src="assets/images/placeholder.svg" alt="Professional pharmacist at the counter" width="1240" height="530">
     </div>
   </div>
 </section>
@@ -1148,31 +1139,43 @@ footer{background:var(--pine);padding:80px 0 32px}
   draw();
 })();
 
-/* ── Hero HUD — EKG line ── */
+/* ── Hero HUD — EKG line across full strip ── */
 (function(){
   var c=document.getElementById('hero-hud');
   if(!c) return;
   var ctx=c.getContext('2d');
   var t=0;
 
-  /* EKG shape: relative y offsets for one cycle */
-  var ekg=[0,0,0,0,-30,60,-40,0,10,-10,5,0,0,0,0,0];
+  function resize(){
+    var wrap=c.parentElement;
+    c.width=wrap.offsetWidth||window.innerWidth;
+    c.height=wrap.offsetHeight||160;
+  }
+  resize(); window.addEventListener('resize',resize);
+
+  /* EKG shape: relative y offsets for one cycle (scaled to strip height) */
+  var ekgBase=[0,0,0,0,-1,2,-1.3,0,.35,-.35,.2,0,0,0,0,0];
 
   function draw(){
     var W=c.width, H=c.height;
     ctx.clearRect(0,0,W,H);
 
-    /* Gradient overlay — transparent top, dark bottom */
+    /* Gradient overlay — transparent centre, darker at edges */
     var g=ctx.createLinearGradient(0,0,0,H);
     g.addColorStop(0,'rgba(13,43,26,0)');
-    g.addColorStop(1,'rgba(13,43,26,.65)');
+    g.addColorStop(.65,'rgba(13,43,26,0)');
+    g.addColorStop(1,'rgba(13,43,26,.55)');
     ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
 
-    /* EKG line */
+    /* Scale EKG amplitude to strip height */
+    var amp=H*.1;
+    var ekg=ekgBase.map(function(v){return v*amp});
+
+    /* EKG line — scrolls left */
     var segW=W/(ekg.length-1);
-    var baseY=H*.65;
+    var baseY=H*.72;
     ctx.beginPath();
-    var offset=(t*1.2)%W;
+    var offset=(t*.9)%W;
     for(var pass=0;pass<2;pass++){
       for(var i=0;i<ekg.length;i++){
         var x=((i*segW-offset)+W*2)%(W)+pass*W-W;
@@ -1180,17 +1183,32 @@ footer{background:var(--pine);padding:80px 0 32px}
         if(i===0&&pass===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
       }
     }
-    ctx.strokeStyle='rgba(45,122,79,.85)';
+    ctx.strokeStyle='rgba(45,122,79,.75)';
     ctx.lineWidth=2;
     ctx.lineJoin='round';
     ctx.stroke();
 
-    /* Blinking leading dot */
-    var dotX=W*.8;
-    var dotY=baseY+ekg[Math.floor(((t*.015)%1)*ekg.length)];
+    /* Blinking dot at leading edge */
+    var dotX=W*.78;
+    var idx=Math.floor(((t*.01)%1)*ekg.length);
+    var dotY=baseY+ekg[idx];
     var bAlpha=(.5+.5*Math.sin(t*.12));
     ctx.beginPath(); ctx.arc(dotX,dotY,4,0,Math.PI*2);
     ctx.fillStyle='rgba(124,196,160,'+bAlpha+')'; ctx.fill();
+
+    /* Secondary dim line offset left for depth */
+    ctx.beginPath();
+    var offset2=(offset+W*.35)%W;
+    for(var pass=0;pass<2;pass++){
+      for(var i=0;i<ekg.length;i++){
+        var x=((i*segW-offset2)+W*2)%(W)+pass*W-W;
+        var y=(baseY-32)+ekg[i]*.6;
+        if(i===0&&pass===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+      }
+    }
+    ctx.strokeStyle='rgba(45,122,79,.2)';
+    ctx.lineWidth=1.2;
+    ctx.stroke();
 
     t++; requestAnimationFrame(draw);
   }
